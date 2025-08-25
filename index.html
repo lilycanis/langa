@@ -1,0 +1,698 @@
+```
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ulang tahunnya angga</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2d2d2d 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
+        }
+        
+        .birthday-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .birthday-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(255, 105, 180, 0.2);
+        }
+        
+        .romantic-accent {
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+        }
+        
+        .gallery-item {
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05) rotate(2deg);
+            z-index: 10;
+        }
+        
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 1.5rem;
+            color: #ff69b4;
+            opacity: 0;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .candle {
+            width: 6px;
+            height: 30px;
+            background: linear-gradient(to top, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 3px;
+            position: relative;
+        }
+        
+        .candle::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: #ff6b35;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #ff6b35, 0 0 40px #ff6b35;
+            animation: flicker 2s infinite alternate;
+        }
+        
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+            animation: confetti-fall 5s linear forwards;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .equalizer {
+            display: flex;
+            align-items: end;
+            height: 40px;
+            gap: 3px;
+        }
+        
+        .bar {
+            width: 4px;
+            background: linear-gradient(to top, #ff69b4, #ff1493);
+            border-radius: 2px;
+            transition: height 0.2s ease;
+        }
+        
+        .music-note {
+            position: absolute;
+            font-size: 1.2rem;
+            color: #ff69b4;
+            opacity: 0;
+            animation: float-note 4s ease-in-out infinite;
+        }
+        
+        @keyframes float-note {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .vinyl {
+            width: 100px;
+            height: 100px;
+            background: #1a1a1a;
+            border-radius: 50%;
+            position: relative;
+            border: 2px solid #ff69b4;
+            animation: spin 4s linear infinite paused;
+        }
+        
+        .vinyl::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: #ff69b4;
+            border-radius: 50%;
+        }
+        
+        .vinyl::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 2px solid #ff1493;
+            border-radius: 50%;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .vinyl.playing {
+            animation-play-state: running;
+        }
+        
+        .dancing-element {
+            animation: dance 2s ease-in-out infinite;
+        }
+        
+        @keyframes dance {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(5deg); }
+            75% { transform: translateY(-5px) rotate(-5deg); }
+        }
+
+        /* Anime/Japanese Elements */
+        .sakura {
+            position: absolute;
+            font-size: 1.5rem;
+            color: #ffb6c1;
+            opacity: 0;
+            animation: sakura-fall 8s linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes sakura-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .anime-character {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .anime-character:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .japanese-text {
+            font-family: 'Poppins', sans-serif;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            padding: 10px;
+            border-right: 2px solid #ff69b4;
+        }
+        
+        .kawaii-element {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center">
+    <!-- Floating Elements Background -->
+    <div class="floating-hearts" id="hearts"></div>
+    <div class="sakura-fall-container" id="sakuraContainer"></div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-12">
+        <!-- Hero Section -->
+        <div class="text-center mb-16 relative">
+            <!-- Anime Character -->
+            <div class="anime-character absolute top-10 right-10 hidden md:block">
+                <img src="" width="20%" height="20%"/>
+                      
+            </div>
+            
+            <div class="flex justify-center mb-6">
+                <div class="candle mx-2"></div>
+                <div class="candle mx-2"></div>
+                <div class="candle mx-2"></div>
+            </div>
+            
+            <h1 class="hero-title text-6xl md:text-8xl font-bold mb-6 text-white">
+                To the man who turns my ordinary days into poetry
+            </h1>
+            <h2 class="text-4xl md:text-6xl font-bold romantic-accent bg-clip-text text-transparent mb-8">
+                Erlangga Rifana
+            </h2>
+            <p class="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto">
+                yang kukenal sebagai mahakarya Tuhan nyaris sempurna, kemudian semesta mengenal ia sebagai Erlangga Rifana, 
+            </p>
+        </div>
+
+        <!-- Birthday Message (Moved Above Gallery) -->
+        <div class="birthday-card rounded-xl p-8 text-center max-w-4xl mx-auto mb-16 relative">
+            <!-- Japanese Decorative Text -->
+            <div class="japanese-text absolute left-4 top-1/2 transform -translate-y-1/2 text-pink-400 text-sm hidden md:block">
+                I<br>LOVE<br>YOU
+            </div>
+            
+            <div class="romantic-accent w-20 h-1 mx-auto mb-6 rounded-full"></div>
+            <h2 class="text-3xl font-bold mb-6 kawaii-element"> Hope you're happy </h2>
+            <p class="text-lg text-gray-300 leading-relaxed mb-4">
+                おめでとう! Wkwk, SERIUS GAA KAMU 21+??? Aku gatau nii yang udah kamu lewatin apa aja sejauh ini, wlw gimanapun itu pasti hal yg ngebentuk Erlangga Rifana yang aku liat skrg ini, kan? Mulai dari entah kapan pokoknya pas mulai syg sm km aja, aku harap bisa ngasih kamu banyak-banyak hal baik yang bermakna, sehingga itu akan membentuk kamu yang jauh lebih bijak lagi kedepannya. (ganteng bonus)
+                Tapi, manusia itu dinamis, kan, btw? Hehe, jadi aku ga mau banyak janji-janji kek yg aneh atau crinjjj gitu, TAPI TAPI TAPII ... aku gmw bgt bikin kamu SEDIKIT AJA ngerasain nyesel krn udah ketemu aku dan milih aku diantara banyak pilihan yg tersedia di depan mata kamu, termasuk memilih untuk tinggal dan memberikan aku kesempatan untuk mengenal kamu lbh jauh. thank you ...
+            </p>
+            <p class="text-lg text-gray-300 leading-relaxed mb-4">
+                Kalau kamu punya harapan atau keinginan aku ikut doain jg yh semoga bisa segera tercapai, termasuk yang ke Madinah itu. Aku ga tau posisi atau makna kehadiran aku di hidup km ini seperti apa atau gimana, aku ga mau melewati batas dari yang udah kamu toleransi ke aku, aku serahin semua ke kamu dan the power of TIME, wkwk, entah berapa lama waktu yang bisa aku rayu biar bisa luluhin kamu, awowkwok. 
+                LOAAAAFFFFFFFGGGYUUUUUUU.
+            </p>
+            <div class="romantic-accent w-20 h-1 mx-auto mt-6 rounded-full"></div>
+            
+            <!-- Kawaii Decoration -->
+            <div class="absolute bottom-4 right-4 text-2xl kawaii-element">✨</div>
+        </div>
+
+        <!-- Gallery Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            <!-- Image 1 -->
+            <div class="gallery-item birthday-card rounded-xl p-4 relative">
+                <div class="absolute -top-2 -right-2 bg-pink-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm kawaii-element">
+                    game aneh
+                </div>
+                <img 
+                    src="lovers1.jpg"
+                    alt="Erlangga Rifana tersenyum bahagia dengan latar belakang kota malam yang romantis" 
+                    class="w-full h-64 object-cover rounded-lg mb-4"
+                    onerror="this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3bdc3fcf-67e5-4fe9-ab43-982bf7415bea.png/1a1a1a/ffffff?text=Memori+Indah'"
+                >
+                <h3 class="text-xl font-semibold mb-2">🌸 KITA PACARAN???</h3>
+                <p class="text-gray-400">SIAPA SANGKA COY?!!! abang-abangan imo yg SELAMA INI aku sukain ternyata dia mw lovers-an sama aku. tp skrg udah ngga sih, yah, gpp, AMAN!</p>
+            </div>
+
+            <!-- Image 2 -->
+            <div class="gallery-item birthday-card rounded-xl p-4">
+                <img 
+                    src="gta1.jpg" 
+                    alt="Pemandangan sunset romantis dengan siluet dua orang berjalan di pantai" 
+                    class="w-full h-64 object-cover rounded-lg mb-4"
+                    onerror="this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ad16f8be-de11-4c9a-a827-eba9566d9ba5.png/1a1a1a/ffffff?text=Sunset+Romantis'"
+                >
+                <h3 class="text-xl font-semibold mb-2">🎮 cita-citaku punya ps 5 biar bisa main sama angga</h3>
+                <p class="text-gray-400">btw maaf udah hilangkan motor engkau dan tmks banyak krna udah beliin sepeda dan baju, udh ngasih kerjaan jg, loafyu mwaa :3</p>
+            </div>
+
+            <!-- Image 3 -->
+            <div class="gallery-item birthday-card rounded-xl p-4">
+                <img 
+                    src="nonton1.jpg" 
+                    alt="Kue ulang tahun elegan dengan lilin dan dekorasi bunga di atas meja kayu" 
+                    class="w-full h-64 object-cover rounded-lg mb-4"
+                    onerror="this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9df793a9-177a-455d-94c0-86c11f717409.png'"
+                >
+                <h3 class="text-xl font-semibold mb-2">🎬 1000X nonton bareng</h3>
+                <p class="text-gray-400">kadang-kadang aku ga terlalu suka filmnya, cuma asik aja bisa ngobrol/denger kamu ketawa.</p>
+            </div>
+
+            <!-- Image 4 -->
+            <div class="gallery-item birthday-card rounded-xl p-4">
+                <img 
+                    src="dc1.jpg" 
+                    alt="Bunga mawar merah dalam vas kristal dengan latar belakang hitam elegan" 
+                    class="w-full h-64 object-cover rounded-lg mb-4"
+                    onerror="this.src='https://placehold.co/400x500/1a1a1a/ffffff?text=Keindahan'"
+                >
+                <h3 class="text-xl font-semibold mb-2">📞 CALL RIBET, SERUMAH AJA GA SI??tapi kita sama-sama msh kecil, hm, nanti aja deh</h3>
+                <p class="text-gray-400">Dc 24/7 itu hanyalah propaganda, kamu sebnrnya SENGAJA ya, kaya ganja buat orang Amerika? bikin kecanduan.</p>
+            </div>
+        </div>
+
+        <!-- Interactive Wish Button -->
+        <div class="text-center mb-16">
+            <button onclick="createConfetti()" class="romantic-accent text-white px-8 py-4 rounded-full text-lg font-semibold hover:scale-105 transition-transform duration-300 kawaii-element">
+                🎉 Explosion！
+            </button>
+        </div>
+
+        <!-- Music Player Panel -->
+        <div class="birthday-card rounded-xl p-8 max-w-4xl mx-auto">
+            <h3 class="text-3xl font-bold text-center mb-8 dancing-element">
+                🎵 Siapa yang cita-citanya jadi musisi terus bikin 1000 lagu buat cwk yg dia suka, guys? AKU BANG AKUU, AKU BANG🎵, AKU TELAT GA BANHHH?!!
+            </h3>
+            
+            <div class="flex flex-col md:flex-row items-center gap-8 mb-8">
+                <!-- Vinyl Record -->
+                <div class="vinyl" id="vinylRecord">
+                    <div class="music-note">🎵</div>
+                    <div class="music-note" style="animation-delay: 1s;">🎶</div>
+                </div>
+                
+                <!-- Player Controls -->
+                <div class="flex-1">
+                    <div class="text-center mb-4">
+                        <h4 class="text-xl font-semibold mb-2" id="currentSong">Thank You</h4>
+                        <p class="text-gray-400" id="currentArtist">Led Zeppelin</p>
+                    </div>
+                    
+                    <div class="flex items-center justify-center gap-4 mb-4">
+                        <button onclick="previousSong()" class="p-3 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-backward"></i>
+                        </button>
+                        <button onclick="togglePlay()" class="p-4 rounded-full romantic-accent text-white hover:scale-110 transition-transform">
+                            <i class="fas fa-play" id="playIcon"></i>
+                        </button>
+                        <button onclick="nextSong()" class="p-3 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-forward"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Volume Control -->
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fas fa-volume-up text-gray-400"></i>
+                        <input type="range" min="0" max="1" step="0.1" value="0.7" 
+                               oninput="changeVolume(this.value)" 
+                               class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer">
+                    </div>
+                    
+                    <!-- Visual Equalizer -->
+                    <div class="equalizer mx-auto" id="equalizer">
+                        <div class="bar" style="height: 20px;"></div>
+                        <div class="bar" style="height: 15px;"></div>
+                        <div class="bar" style="height: 25px;"></div>
+                        <div class="bar" style="height: 10px;"></div>
+                        <div class="bar" style="height: 30px;"></div>
+                        <div class="bar" style="height: 18px;"></div>
+                        <div class="bar" style="height: 22px;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Song List -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-4 rounded-lg bg-gray-800 hover:bg-gray-700 cursor-pointer transition-colors" onclick="playSong(0)">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-music text-pink-500"></i>
+                        <div>
+                            <p class="font-semibold">Led Zeppelin</p>
+                            <p class="text-sm text-gray-400">Thank You</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-4 rounded-lg bg-gray-800 hover:bg-gray-700 cursor-pointer transition-colors" onclick="playSong(1)">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-heart text-pink-500"></i>
+                        <div>
+                            <p class="font-semibold">Wonderful Tonight</p>
+                            <p class="text-sm text-gray-400">Eric Clapton</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-4 rounded-lg bg-gray-800 hover:bg-gray-700 cursor-pointer transition-colors" onclick="playSong(2)">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-star text-pink-500"></i>
+                        <div>
+                            <p class="font-semibold">You Are Not Alone</p>
+                            <p class="text-sm text-gray-400">Michael Jackson</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-4 rounded-lg bg-gray-800 hover:bg-gray-700 cursor-pointer transition-colors" onclick="playSong(3)">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-birthday-cake text-pink-500"></i>
+                        <div>
+                            <p class="font-semibold">Serta Mulia</p>
+                            <p class="text-sm text-gray-400">Sal Priadi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Funny Interactive Element -->
+            <div class="text-center mt-8">
+                <button onclick="surpriseDance()" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full font-semibold hover:scale-105 transition-transform kawaii-element">
+                    APA KU KASIH AJA DISINI INSTRUMEN PLANTS Vs. ZOMBIE YANG KAMU SUKAI ITU??? hmmmmm
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 text-gray-400">
+        <p>Sekali lagi, selamat ulang tahun ya Gaa, Erlangga Rifana, sayangku, cinta, ganteng, tapi kadang toxic, proastinkkk handal, rasist, hadeh, gsukaaaaaa, tapi udah telanjur ...❤️</p>
+    </footer>
+
+    <!-- Audio Element -->
+    <audio id="audioPlayer"></audio>
+
+    <script>
+        // Audio player setup
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playIcon = document.getElementById('playIcon');
+        const vinylRecord = document.getElementById('vinylRecord');
+        const equalizer = document.getElementById('equalizer');
+        const currentSong = document.getElementById('currentSong');
+        const currentArtist = document.getElementById('currentArtist');
+        
+        const songs = [
+            { 
+                title: "Thank You", 
+                artist: "Led Zeppelin", 
+                src: "Led Zeppelin - Thank You.mp3" 
+            },
+            { 
+                title: "Wonderful Tonight", 
+                artist: "Eric Clapton", 
+                src: "Wonderful Tonight - Eric Clapton.mp3" 
+            },
+            { 
+                title: "You Are Not Alone", 
+                artist: "Michael Jackson", 
+                src: "Michael Jackson - You Are Not Alone.mp3" 
+            },
+            { 
+                title: "Serta Mulia", 
+                artist: "Sal Priadi", 
+                src: "Sal Priadi - Serta Mulia.mp3" 
+            }
+        ];
+        
+        let currentSongIndex = 0;
+        let isPlaying = false;
+        let equalizerInterval;
+
+        function togglePlay() {
+            if (isPlaying) {
+                audioPlayer.pause();
+                playIcon.className = "fas fa-play";
+                vinylRecord.classList.remove('playing');
+                stopEqualizer();
+            } else {
+                if (audioPlayer.src === "") {
+                    playSong(0);
+                } else {
+                    audioPlayer.play();
+                    playIcon.className = "fas fa-pause";
+                    vinylRecord.classList.add('playing');
+                    startEqualizer();
+                }
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function playSong(index) {
+            currentSongIndex = index;
+            const song = songs[index];
+            audioPlayer.src = song.src;
+            audioPlayer.play();
+            currentSong.textContent = song.title;
+            currentArtist.textContent = song.artist;
+            playIcon.className = "fas fa-pause";
+            vinylRecord.classList.add('playing');
+            isPlaying = true;
+            startEqualizer();
+            createMusicNotes();
+            createSakura(); // Add sakura effect when music plays
+        }
+
+        function nextSong() {
+            currentSongIndex = (currentSongIndex + 1) % songs.length;
+            playSong(currentSongIndex);
+        }
+
+        function previousSong() {
+            currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+            playSong(currentSongIndex);
+        }
+
+        function changeVolume(volume) {
+            audioPlayer.volume = volume;
+        }
+
+        function startEqualizer() {
+            stopEqualizer();
+            equalizerInterval = setInterval(() => {
+                const bars = equalizer.querySelectorAll('.bar');
+                bars.forEach(bar => {
+                    const randomHeight = Math.floor(Math.random() * 30) + 5;
+                    bar.style.height = `${randomHeight}px`;
+                });
+            }, 100);
+        }
+
+        function stopEqualizer() {
+            clearInterval(equalizerInterval);
+        }
+
+        function createMusicNotes() {
+            for (let i = 0; i < 10; i++) {
+                const note = document.createElement('div');
+                note.className = 'music-note';
+                note.innerHTML = Math.random() > 0.5 ? '🎵' : '🎶';
+                note.style.left = Math.random() * 100 + '%';
+                note.style.animationDelay = Math.random() * 2 + 's';
+                document.querySelector('.vinyl').appendChild(note);
+                
+                setTimeout(() => {
+                    note.remove();
+                }, 4000);
+            }
+        }
+
+        function createSakura() {
+            const container = document.getElementById('sakuraContainer');
+            for (let i = 0; i < 15; i++) {
+                const sakura = document.createElement('div');
+                sakura.className = 'sakura';
+                sakura.innerHTML = '🌸';
+                sakura.style.left = Math.random() * 100 + 'vw';
+                sakura.style.animationDelay = Math.random() * 5 + 's';
+                sakura.style.fontSize = (Math.random() * 10 + 15) + 'px';
+                container.appendChild(sakura);
+                
+                setTimeout(() => {
+                    sakura.remove();
+                }, 8000);
+            }
+        }
+
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            const hearts = 30;
+            
+            for (let i = 0; i < hearts; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDelay = Math.random() * 6 + 's';
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        function createConfetti() {
+            const colors = ['#ff69b4', '#ff1493', '#ff6b35', '#ff8c42', '#ffb142'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+            createSakura(); // Also create sakura when confetti is triggered
+        }
+
+        function surpriseDance() {
+            // Make everything dance!
+            const elements = document.querySelectorAll('h1, h2, h3, .gallery-item, button');
+            elements.forEach(el => {
+                el.classList.add('dancing-element');
+                setTimeout(() => {
+                    el.classList.remove('dancing-element');
+                }, 3000);
+            });
+            
+            createConfetti();
+            playSong(Math.floor(Math.random() * songs.length));
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createHearts();
+            createSakura(); // Initial sakura fall
+            
+            // Event listeners
+            audioPlayer.addEventListener('ended', nextSong);
+            
+            // Add mouse move effect for gallery items
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                item.addEventListener('mousemove', function(e) {
+                    const x = e.offsetX;
+                    const y = e.offsetY;
+                    const centerX = this.offsetWidth / 2;
+                    const centerY = this.offsetHeight / 2;
+                    
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+                    
+                    this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+                });
+            });
+            
+            // Continuous sakura fall
+            setInterval(createSakura, 3000);
+        });
+    </script>
+</body>
+</html>
+```
